@@ -63,6 +63,11 @@ static void MX_SPI1_Init(void);
 static void MX_WWDG_Init(void);
 static void MX_IWDG_Init(void);
 static void MX_CRC_Init(void);
+
+
+void test(void){
+  ;
+}
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -86,6 +91,7 @@ int main(void)
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
 
+  test();
   /* USER CODE BEGIN Init */
 
   /* USER CODE END Init */

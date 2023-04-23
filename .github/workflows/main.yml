@@ -36,6 +36,9 @@ jobs:
           Temperature: STM32/Temperature/**
   build:
     needs: changes
+    permissions:
+      pull-requests: read
+      contents: write
     # If no changes has been made to projects above do not build
     if: ${{ needs.changes.outputs.packages != '[]' && needs.changes.outputs.packages != '' }} 
     strategy:

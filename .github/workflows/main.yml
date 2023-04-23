@@ -55,7 +55,7 @@ jobs:
         path: | 
           STM32/${{ matrix.package }}/build/${{ matrix.package }}.elf
           STM32/${{ matrix.package }}/build/${{ matrix.package }}.bin
-    - uses: NicOfNoomers/release-on-push-monorepo-action@master
+    - uses: NicOfNoomers/mono_release_on_push@master
       id: release-on-push
       if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }} # tag only pushes to the main branch
       with:

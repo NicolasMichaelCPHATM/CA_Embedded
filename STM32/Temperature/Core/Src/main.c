@@ -68,6 +68,7 @@ static void MX_CRC_Init(void);
 void test(void){
   ;
   ;
+  ;
 }
 /* USER CODE BEGIN PFP */
 

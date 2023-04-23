@@ -78,6 +78,9 @@ static void MX_IWDG_Init(void);
   * @brief  The application entry point.
   * @retval int
   */
+
+void test(void){
+ ;}
 int main(void)
 {
   /* USER CODE BEGIN 1 */

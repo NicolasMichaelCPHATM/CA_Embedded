@@ -75,7 +75,7 @@ jobs:
       - name: Read Breaking PCB version
         id: breakingpcbversion
         # Checks if the file pcbversion exists and that the second line is configured as a version number with v<number>.number and returns the second line, otherwise it returns the current pcb version if the second line does not match the structure or v0.0 if the file does not exist.
-        run: echo "breakingPCBVersion=$(if test -f STM32/${{ matrix.package }}/pcbversion && sed -n '2p' STM32/${{ matrix.package }}/pcbversion | grep -Eq "^v [0-9]+\.[0-9]+$"; then echo $(sed -n '2p' STM32/${{ matrix.package }}/pcbversion); else if test -f STM32/${{ matrix.package }}/pcbversion; then echo $(head -n 1 STM32/${{ matrix.package }}/pcbversion); else echo "v0.0"; fi; fi)" >> $GITHUB_OUTPUT
+        run: echo "breaking=$(if test -f STM32/${{ matrix.package }}/pcbversion && sed -n '2p' STM32/${{ matrix.package }}/pcbversion | grep -Eq "^v[0-9]+\.[0-9]+$"; then echo $(sed -n '2p' STM32/${{ matrix.package }}/pcbversion); else if test -f STM32/${{ matrix.package }}/pcbversion; then echo $(head -n 1 STM32/${{ matrix.package }}/pcbversion); else echo "v0.0"; fi; fi)" >> $GITHUB_OUTPUT
       
       - name: Release
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }} # upload only pushes to the main branch
@@ -97,7 +97,7 @@ jobs:
           curl -f -X PUT -H "x-ms-version: 2020-04-08" -H "Content-Type: application/octet-stream" -H "x-ms-blob-type: BlockBlob" \
             "${{ secrets.AZURE_BLOB_LINK }}/${{ steps.release-on-push.outputs.tag_name }}.zip${{secrets.AZURE_BLOB_QUERYSTRING}}" \
             --header 'x-ms-meta-BreakingPCBVersion: ${{ steps.release-on-push.outputs.breakingPCBVersion }}' \
-            --header 'x-ms-meta-ReleaseVersion ${{ steps.release-on-push.outputs.tag_name }}' \
-            --header 'x-ms-meta-ReleaseName ${{ steps.release-on-push.outputs.version }}' \
+            --header 'x-ms-meta-ReleaseVersion: ${{ steps.release-on-push.outputs.tag_name }}' \
+            --header 'x-ms-meta-ReleaseName: ${{ steps.release-on-push.outputs.version }}' \
             --upload-file '${{ matrix.package }}.zip'
         shell: bash

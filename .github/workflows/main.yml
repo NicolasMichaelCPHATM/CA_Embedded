@@ -35,6 +35,11 @@ jobs:
             Temperature: STM32/Temperature/**
   build:
     needs: changes
+    permissions:
+      pull-requests: read
+      contents: write
+    # If no changes has been made to projects above do not build
+    if: ${{ needs.changes.outputs.packages != '[]' && needs.changes.outputs.packages != '' }} 
     strategy:
       matrix:
         # Parse JSON array containing names of all filters matching any of changed files
@@ -52,7 +57,7 @@ jobs:
           path: |
             STM32/${{ matrix.package }}/build/${{ matrix.package }}.elf
             STM32/${{ matrix.package }}/build/${{ matrix.package }}.bin
-      - uses: rymndhng/release-on-push-action@v0.27.0
+      - uses: copenhagenatomics/mono_release_on_push_action@master
         id: release-on-push
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }} # tag only pushes to the main branch
         with:
@@ -94,5 +99,5 @@ jobs:
             --header 'x-ms-meta-BreakingPCBVersion: ${{ steps.release-on-push.outputs.breakingPCBVersion }}' \
             --header 'x-ms-meta-ReleaseVersion ${{ steps.release-on-push.outputs.tag_name }}' \
             --header 'x-ms-meta-ReleaseName ${{ steps.release-on-push.outputs.version }}' \
-            --upload-file 'LoopControl.zip'
+            --upload-file '${{ matrix.package }}.zip'
         shell: bash

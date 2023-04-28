@@ -96,7 +96,7 @@ jobs:
         run: |
           curl -f -X PUT -H "x-ms-version: 2020-04-08" -H "Content-Type: application/octet-stream" -H "x-ms-blob-type: BlockBlob" \
             "${{ secrets.AZURE_BLOB_LINK }}/${{ steps.release-on-push.outputs.tag_name }}.zip${{secrets.AZURE_BLOB_QUERYSTRING}}" \
-            --header 'x-ms-meta-BreakingPCBVersion: ${{ steps.release-on-push.outputs.breaking }}' \
+            --header 'x-ms-meta-BreakingPCBVersion: ${{ steps.breakingpcbversion.outputs.breaking }}' \
             --header 'x-ms-meta-ReleaseVersion: ${{ steps.release-on-push.outputs.tag_name }}' \
             --header 'x-ms-meta-ReleaseName: ${{ steps.release-on-push.outputs.version }}' \
             --upload-file '${{ matrix.package }}.zip'

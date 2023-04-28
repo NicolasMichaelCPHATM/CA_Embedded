@@ -90,7 +90,7 @@ jobs:
       - name: Publish to Azure blob
         run: |
           curl -f -X PUT -H "x-ms-version: 2020-04-08" -H "Content-Type: application/octet-stream" -H "x-ms-blob-type: BlockBlob" \
-            "${{https://carelease.blob.core.windows.net/loop/ secrets.AZURE_BLOB_LINK }}/${{ steps.release-on-push.outputs.tag_name }}.zip${{secrets.AZURE_BLOB_QUERYSTRING}}" \
+            "${{ secrets.AZURE_BLOB_LINK }}/${{ steps.release-on-push.outputs.tag_name }}.zip${{secrets.AZURE_BLOB_QUERYSTRING}}" \
             --header 'x-ms-meta-BreakingPCBVersion: ${{ steps.release-on-push.outputs.breakingPCBVersion }}' \
             --header 'x-ms-meta-ReleaseVersion ${{ steps.release-on-push.outputs.tag_name }}' \
             --header 'x-ms-meta-ReleaseName ${{ steps.release-on-push.outputs.version }}' \

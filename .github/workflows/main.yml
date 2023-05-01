@@ -80,7 +80,7 @@ jobs:
       - name: Prepare software version
         id: swversionPrepare
         # Checks if the file pcbversion exists and that the second line is configured as a version number with v<number>.number and returns the second line, otherwise it returns the current pcb version if the second line does not match the structure or v0.0 if the file does not exist.
-        run: echo "sw_version=$GIT_VERSION" >> $GITHUB_OUTPUT
+        run: echo "swVersion=$(git --no-pager describe --always --dirty)" >> $GITHUB_OUTPUT
       
       - name: Release
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }} # upload only pushes to the main branch
@@ -104,6 +104,6 @@ jobs:
             --header 'x-ms-meta-BreakingPCBVersion: ${{ steps.breakingpcbversion.outputs.breaking }}' \
             --header 'x-ms-meta-ReleaseVersion: ${{ steps.release-on-push.outputs.tag_name }}' \
             --header 'x-ms-meta-ReleaseName: ${{ steps.release-on-push.outputs.version }}' \
-            --header 'x-ms-meta-SWVersion: ${{ steps.swversionPrepare.outputs.sw_version }}' \
+            --header 'x-ms-meta-SWVersion: ${{ steps.swversionPrepare.outputs.swVersion }}' \
             --upload-file '${{ matrix.package }}.zip'
         shell: bash

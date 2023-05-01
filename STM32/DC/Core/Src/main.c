@@ -80,7 +80,7 @@ static void MX_IWDG_Init(void);
   */
 
 void test(void){
- ;}
+ ;;}
 int main(void)
 {
   /* USER CODE BEGIN 1 */

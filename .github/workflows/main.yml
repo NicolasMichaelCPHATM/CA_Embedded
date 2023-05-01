@@ -78,9 +78,9 @@ jobs:
         run: echo "breaking=$(if test -f STM32/${{ matrix.package }}/pcbversion && sed -n '2p' STM32/${{ matrix.package }}/pcbversion | grep -Eq "^v[0-9]+\.[0-9]+$"; then echo $(sed -n '2p' STM32/${{ matrix.package }}/pcbversion); else if test -f STM32/${{ matrix.package }}/pcbversion; then echo $(head -n 1 STM32/${{ matrix.package }}/pcbversion); else echo "v0.0"; fi; fi)" >> $GITHUB_OUTPUT
       
       - name: Prepare software version
-      id: swversionPrepare
-      # Checks if the file pcbversion exists and that the second line is configured as a version number with v<number>.number and returns the second line, otherwise it returns the current pcb version if the second line does not match the structure or v0.0 if the file does not exist.
-      run: echo "sw_version=$GIT_VERSION" >> $GITHUB_OUTPUT
+        id: swversionPrepare
+        # Checks if the file pcbversion exists and that the second line is configured as a version number with v<number>.number and returns the second line, otherwise it returns the current pcb version if the second line does not match the structure or v0.0 if the file does not exist.
+        run: echo "sw_version=$GIT_VERSION" >> $GITHUB_OUTPUT
       
       - name: Release
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }} # upload only pushes to the main branch

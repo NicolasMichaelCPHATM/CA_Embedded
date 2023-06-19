@@ -101,7 +101,7 @@ def updatePcbVersionsFile(newPcbVersion: PCBVersion):
 
 
 def main():
-    with open(f'/STM32/{module_name}/pcbversion') as f:
+    with open(f'STM32/{module_name}/pcbversion') as f:
         lines = f.readlines()
         current_pcb_version = PCBVersion(fullString=lines[0].split("\n")[0])
         breaking_pcb_version = PCBVersion(fullString=lines[1])

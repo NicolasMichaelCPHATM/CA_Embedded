@@ -86,7 +86,7 @@ jobs:
       # gets file environment with submodule included for libraries
       - uses: actions/checkout@v3
         with:
-        submodules: 'true'
+          submodules: 'true'
       # Setup the compiler and compile the program
       - uses: carlosperate/arm-none-eabi-gcc-action@v1
       - run: make

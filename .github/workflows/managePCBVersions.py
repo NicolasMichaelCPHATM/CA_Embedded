@@ -137,6 +137,8 @@ def main():
         # Not a breaking version
         if not getNecessaryPCBVersions():
             updatePcbVersionsFile(breaking_pcb_version)
+        uploadFileToBlob(
+            f"{module_name}-{breaking_pcb_version.fullVersion}-latest", f"{module_name}.zip")
         for pcbVersion in handled_pcb_list:
             uploadFileToBlob(
                 f"{module_name}-{pcbVersion.fullVersion}-latest", f"{module_name}.zip")
